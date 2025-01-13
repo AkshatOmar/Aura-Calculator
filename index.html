@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gen Z Aura Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body class="bg-gradient-to-br from-purple-600 via-blue-500 to-pink-500 min-h-screen">
+    <!-- Audio Elements -->
+    <audio id="correctSound" src="https://cdnjs.cloudflare.com/ajax/libs/hudkit-sounds/1.0.0/success.mp3"></audio>
+    <audio id="wrongSound" src="https://cdnjs.cloudflare.com/ajax/libs/hudkit-sounds/1.0.0/error.mp3"></audio>
+    <audio id="completionSound" src="https://cdnjs.cloudflare.com/ajax/libs/hudkit-sounds/1.0.0/complete.mp3"></audio>
+    <audio id="clickSound" src="https://cdnjs.cloudflare.com/ajax/libs/hudkit-sounds/1.0.0/click.mp3"></audio>
+
+    <!-- Floating Background Elements -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute inset-0 opacity-30">
+            <div class="animate-float absolute top-1/4 left-1/4 w-32 h-32 bg-purple-400 rounded-full blur-xl"></div>
+            <div class="animate-float absolute top-3/4 right-1/4 w-40 h-40 bg-pink-400 rounded-full blur-xl" style="animation-delay: -2s;"></div>
+            <div class="animate-float absolute bottom-1/4 left-1/2 w-36 h-36 bg-blue-400 rounded-full blur-xl" style="animation-delay: -4s;"></div>
+        </div>
+    </div>
+
+    <!-- Landing Page -->
+    <div id="landingPage" class="min-h-screen23 flex items-center justify-center p-4 relative">
+        <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl max-w-3xl w-full p-8 animate-glow">
+            <div class="animate-float">
+                <h1 class="text-5xl text-center font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text mb-8">     
+          Aura Calculator
+                </h1>
+            </div>
+            <div class="space-y-6">
+                <p class="text-2xl text-gray-700">Discover your true Gen Z energy and calculate your aura points!<br>
+
+Are you radiating main character energy or stuck in NPC mode?
+                </p>
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold text-purple-600">🌟 Features:</h3>
+                    <ul class="list-none space-y-3 text-lg text-gray-700">
+                        <li class="flex items-center justify-center gap-2">
+                            <span class="text-purple-500">•</span> 20 Dynamic Questions that test your Gen Z knowledge
+                        </li>
+                        <li class="flex items-center justify-center gap-2">
+                            <span class="text-purple-500">•</span> Real-time Aura Points with epic animations
+                        </li>
+                        <li class="flex items-center justify-center gap-2">
+                            <span class="text-purple-500">•</span> Four unique ranks with special effects
+                        </li>
+                        <li class="flex items-center justify-center gap-2">
+                            <span class="text-purple-500">•</span> Questions shuffle every time you play
+                        </li>
+                        <li class="flex items-center justify-center gap-2">
+                            <span class="text-purple-500">•</span> Sound effects and visual feedback
+                        </li>
+                    </ul>
+                </div>
+                <button onclick="startQuiz()" class="mt-8 px-12 py-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-xl text-xl font-bold transition-all transform hover:scale-105 animate-shine shadow-lg">
+                    Start Your Vibe Check →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Page -->
+    <div id="quizPage" class="min-h-screen flex items-center justify-center p-4 hidden">
+        <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl max-w-2xl w-full p-8">
+            <h2 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
+                Gen Z Aura Calculator
+            </h2>
+            
+            <!-- Points Display -->
+            <div class="mb-6 space-y-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-semibold text-gray-700" id="pointsDisplay">Aura Points: 0</span>
+                        <span id="pointsChange" class="text-xl font-bold hidden score-pop"></span>
+                    </div>
+                </div>
+                <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+                    <div id="progressBar" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500 animate-pulse" style="width: 50%"></div>
+                </div>
+            </div>
+
+            <!-- Question Section -->
+            <div id="questionSection" class="space-y-6">
+                <h3 id="questionText" class="text-2xl font-semibold mb-4 text-gray-800"></h3>
+                <div id="answerButtons" class="space-y-3"></div>
+                <div id="questionProgress" class="text-lg text-gray-500 text-center font-medium"></div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="text-center space-y-6 hidden">
+                <div class="space-y-4">
+                    <h2 id="rankTitle" class="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text"></h2>
+                    <p id="finalPoints" class="text-2xl text-gray-700"></p>
+                    <p id="rankDescription" class="text-xl text-gray-600"></p>
+                </div>
+                <button onclick="resetQuiz()" class="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 font-bold text-lg animate-shine">
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+ <script src="script.js"></script>
+</body>
+</html>
